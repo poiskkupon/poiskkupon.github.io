@@ -38,7 +38,7 @@ async function filtering ( e , a )
 
     for ( p=0; p < testi3.length; p++)
     {
-        if ( ( testi3[ p ].children[3].innerText != searchcategory && searchcategory != categories_all ) && ( types_all != && testi3[ p ].children[2].innerText!= searchcompany && searchcompany !=  companies_all ) && ( testi3[ p ].children[6].innerText != searchtype && types_all != searchtype )
+        if ( ( testi3[ p ].children[3].innerText != searchcategory && searchcategory != categories_all ) && ( testi3[ p ].children[2].innerText != searchcompany && searchcompany !=  companies_all ) && ( testi3[ p ].children[6].innerText != searchtype && types_all != searchtype ) )
             testi3[ p ].style.display = "none" ;
         else
             testi3[ p ].style.display = "" ;
