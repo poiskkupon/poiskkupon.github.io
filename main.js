@@ -11,7 +11,7 @@ function showallinfo()
     }
 }
 
-async function filtering ( e , a )
+function filtering ( e , a )
 {
     //all_vouchers = document.getElementsByClassName('card');
     /*
