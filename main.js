@@ -13,21 +13,9 @@ function showallinfo()
 
 function filtering ( e , a )
 {
-    //all_vouchers = document.getElementsByClassName('card');
-    /*
-    var yu = 0;
-    testi3.forEach( card =>
-        {
-            card.style.display = "flex";
-            console.log( yu );
-            yu++;
-        }
-    );
-    */
-
-    searchcompany = document.getElementsByClassName( 'sort_by_company' )[0].selectedOptions[0].innerText ;
-    searchtype = document.getElementsByClassName( 'sort_by_type' )[0].selectedOptions[0].innerText ;
-    searchcategory = document.getElementsByClassName( 'sort_by_category' )[0].selectedOptions[0].innerText ;
+    searchcompany = document.getElementsByClassName( 'sort_by_company' )[0].selectedOptions[0].label ;
+    searchtype = document.getElementsByClassName( 'sort_by_type' )[0].selectedOptions[0].label ;
+    searchcategory = document.getElementsByClassName( 'sort_by_category' )[0].selectedOptions[0].label ;
     //console.log( a );
 
     companies_all = document.getElementsByClassName( 'sort_by_company' )[0].options[0].label ;
@@ -38,11 +26,37 @@ function filtering ( e , a )
 
     for ( p=0; p < testi3.length; p++)
     {
-        if ( ( testi3[ p ].children[3].innerText != searchcategory && searchcategory != categories_all ) && ( testi3[ p ].children[2].innerText != searchcompany && searchcompany !=  companies_all ) && ( testi3[ p ].children[6].innerText != searchtype && types_all != searchtype ) )
-            testi3[ p ].style.display = "none" ;
-        else
+        var n = 0;
+
+        if ( testi3[ p ].children[3].innerText == searchcategory && searchcategory != categories_all ) n = n + 1;
+            else
+            {
+                if ( searchcategory == categories_all ) n = n + 1;
+                    //else n = n* 0;
+            }
+        if ( testi3[ p ].children[2].innerText == searchcompany && searchcompany != companies_all ) n = n + 1;
+            else
+            {
+                if ( searchcompany == companies_all ) n = n + 1;
+                    //else n = n* 0;
+            }
+        if ( testi3[ p ].children[6].innerText == searchtype && searchtype != types_all ) n = n + 1;
+            else
+            {
+                if ( searchtype == types_all ) n = n + 1;
+                    //else n = n* 0;
+            }
+
+        if ( n == 3 )
             testi3[ p ].style.display = "" ;
+        else
+            testi3[ p ].style.display = "none" ;
+        console.log ( 'dasda' + n );
     }
+
+}
+
+
 
 window.onload = function()
         {
