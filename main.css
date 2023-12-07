@@ -81,7 +81,7 @@ body {
   bottom: 0
 }
 
-.gs_website , .gs_code {
+.gs_website , .gs_code , .gs_link {
   line-height: 52px;
   color: red;
   font-weight: 800;
