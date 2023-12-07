@@ -1,3 +1,4 @@
+
         testi = document.querySelectorAll('.gs_category');
         testi2 = document.querySelectorAll('.gs_website');
         testi3 = document.querySelectorAll('.gs_kupon');
@@ -9,10 +10,25 @@ function showallinfo()
     {
         testi3[ p ].style.display = "";
     }
+    
+    filter = document.getElementById('allsort');
+    filter.innerHTML = 'Всего найдено: ' + document.getElementsByClassName ("gs_kupon").length;
 }
 
 function filtering ( e , a )
 {
+    //all_vouchers = document.getElementsByClassName('card');
+    /*
+    var yu = 0;
+    testi3.forEach( card =>
+        {
+            card.style.display = "flex";
+            console.log( yu );
+            yu++;
+        }
+    );
+    */
+    searchcount = 0;
     searchcompany = document.getElementsByClassName( 'sort_by_company' )[0].selectedOptions[0].label ;
     searchtype = document.getElementsByClassName( 'sort_by_type' )[0].selectedOptions[0].label ;
     searchcategory = document.getElementsByClassName( 'sort_by_category' )[0].selectedOptions[0].label ;
@@ -48,13 +64,26 @@ function filtering ( e , a )
             }
 
         if ( n == 3 )
+        {
             testi3[ p ].style.display = "" ;
+            searchcount++;
+        }
         else
             testi3[ p ].style.display = "none" ;
-        console.log ( 'dasda' + n );
+        //console.log ( 'dasda' + n );
+        
+        fr = document.getElementById('allsort');
+        filter.innerHTML = 'Найдено подходящих: ' + searchcount;
+
+
     }
 
 }
+
+
+
+
+
 
 
 
@@ -100,8 +129,10 @@ window.onload = function()
 
 	companyselect =	'<div><span>Сортировка по категории</span>        <select id="companies" name="categories" method="post" class="sort_by_company" onchange="filtering( this , this.className)"><option value="pusto" class="filter_action">				Все компании				</option><option value="pusto" class="filter_action">' + allcompanies.join ('<option value="pusto" class="filter_action">') + '        </option>        </select>	</div>';
 
-	typeselect =	'<div><span>Сортировка по типу скидки</span>		    <select id="types" name="categories" method="post" class="sort_by_type" onchange="filtering( this , this.className )"><option value="pusto" class="filter_action">				Все типы  скидок				</option><option value="pusto" class="filter_action">'  + alltypes.join ('<option class="filter_action">') +		    '</option></select>	</div><div id="buttondiv"><button id="buttonshowall" onclick="showallinfo">Сбросить / Показать всё</button></div>';
+	typeselect =	'<div><span>Сортировка по типу скидки</span>		    <select id="types" name="categories" method="post" class="sort_by_type" onchange="filtering( this , this.className )"><option value="pusto" class="filter_action">				Все типы  скидок				</option><option value="pusto" class="filter_action">'  + alltypes.join ('<option class="filter_action">') +		    '</option></select>	</div><div id="buttondiv"><button id="buttonshowall" onclick="showallinfo()">Сбросить / Показать всё</button></div>';
 
     filter = document.getElementById('sort');
     filter.innerHTML = companyselect + categoryselect + typeselect;
+        filter = document.getElementById('allsort');
+        filter.innerHTML = 'Всего найдено: ' + document.getElementsByClassName ("gs_kupon").length;
     }
