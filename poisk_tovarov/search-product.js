@@ -296,7 +296,7 @@ async function searchXML( page='')
 
 		dd.innerHTML = divText;
 		document.getElementById('productlist').appendChild(dd);		
-		dd.id = 'ttt';
+		// dd.id = 'ttt';
 		dd.className = 'product type-product post-49663 status-publish  instock product_cat-25475 product_tag-hobby-bike product_tag-24848 product_tag--hobby-bike product_tag-25477 product_tag-6514 sale shipping-taxable purchasable product-type-simple';
 
     }
@@ -386,7 +386,7 @@ function searchXMLa()
 
 		dd.innerHTML = divText;
 		document.getElementById('results').appendChild(dd);			
-		dd.id = 'ttt';
+		// dd.id = 'ttt';
     }
 
 }
@@ -478,7 +478,7 @@ function showPage(pageNum)
 
 		dd.innerHTML = divText;
 		document.getElementById('productlist').appendChild(dd);		
-		dd.id = 'ttt';
+		// dd.id = 'ttt';
 		dd.className = 'product type-product post-49663 status-publish  instock product_cat-25475 product_tag-hobby-bike product_tag-24848 product_tag--hobby-bike product_tag-25477 product_tag-6514 sale shipping-taxable purchasable product-type-simple';
 		console.log(i);
 	}
