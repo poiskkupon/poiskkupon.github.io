@@ -231,6 +231,7 @@ async function searchXML( page='')
 		pageList.push (o);
 		
 		var el = document.createElement("div");
+		el. className = 'pagenumber';		
 		el.innerHTML = '<a class="xmlList" onclick="searchXML(' + ( maxoage - o ) +')" text-align="center">' + o +  '</a>';
 		document.getElementById('pagination').appendChild(el);
 	}
