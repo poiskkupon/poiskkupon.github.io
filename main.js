@@ -13,6 +13,11 @@ function showallinfo()
     
     filter = document.getElementById('allsort');
     filter.innerHTML = 'Всего найдено: ' + document.getElementsByClassName ("gs_kupon").length;
+
+    //document.getElementsByClassName('sort_by_category')[0].selectedIndex = 0
+    document.getElementsByClassName( 'sort_by_company' )[0].selectedOptions[0].selectedIndex = 0 ;
+    document.getElementsByClassName( 'sort_by_type' )[0].selectedOptions[0].selectedIndex = 0;
+    document.getElementsByClassName( 'sort_by_category' )[0].selectedOptions[0].selectedIndex = 0 ;
 }
 
 function filtering ( e , a )
