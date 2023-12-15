@@ -1,3 +1,27 @@
+.ended
+{
+  border: dashed 2px red;
+  border-radius:3px;
+}
+
+
+
+.future
+{
+  border: solid 2px blue;
+  border-radius:3px;
+}
+
+.oneday
+{
+  border: solid 2px violet;
+  border-radius:3px;
+}
+
+
+
+
+
 #gs_kupon
 {
     /*display:none; */
