@@ -76,6 +76,18 @@ body {
   background-color: #e74c3c;
 }*/
 
+
+.gs_block
+{
+  text-align:center;
+  margin:auto;
+}
+.podpis
+{
+  font-size: 11px;
+  line-height: 52px;
+  display: block ruby;
+}
 .gs_kupon {
   top: 200px;
   background-color: #eeeeee;
