@@ -166,3 +166,11 @@ body {
   align-items: center;
   font-size: 1em;
 }
+
+.podpis
+{
+  grid-column: 1 / 4; /* span from grid column line 1 to 3 (i.e., span 2 columns) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
