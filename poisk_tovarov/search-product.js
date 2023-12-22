@@ -232,7 +232,7 @@ async function searchXML( page='')
 		
 		var el = document.createElement("div");
 		el. className = 'pagenumber';		
-		el.innerHTML = '<a class="xmlList" onclick="searchXML(' + ( maxoage - o ) +')" text-align="center">' + o +  '</a>';
+		el.innerHTML = '<a class="xmlList" onclick="searchXML(' + ( maxpage - o ) +')" text-align="center">' + o +  '</a>';
 		document.getElementById('pagination').appendChild(el);
 	}
 
