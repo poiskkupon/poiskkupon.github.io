@@ -101,7 +101,7 @@ option.addEventListener('click', function handleClick(event)
 			select.appendChild( option );
 		}	
 	}
-
+}
 
 
 
