@@ -86,6 +86,7 @@ option.addEventListener('click', function handleClick(event)
 	//console.log('element clicked 🎉🎉🎉', event.target.id);});
 	select.appendChild( option );
 }
+);
 
 
 	
@@ -99,7 +100,8 @@ option.addEventListener('click', function handleClick(event)
 		option.addEventListener('click', function handleClick(event) {
 	  		//console.log('element clicked 🎉🎉🎉', event.target.id);});
 			select.appendChild( option );
-		}	
+		}
+		);
 	}
 }
 
