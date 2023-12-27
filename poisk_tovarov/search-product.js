@@ -10,6 +10,14 @@ d.onchange=function( )
 	na = 0;
 	kk = 1;
 
+var newoptio = document.createElement("option");
+newoptio.text = 'Все подкатегории';
+newoptio.value = 'allsubcategories';
+newoptio.id = 'menu_idall';
+document.getElementById('Select'+(na+1)).appendChild( newoption );
+	
+
+	
 for (const [key, value] of Object.entries(titelliste)) {
 
 	{
