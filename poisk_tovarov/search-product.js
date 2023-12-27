@@ -31,6 +31,7 @@ for (const [key, value] of Object.entries(titelliste)) {
 		foo = titelliste[ kk ];
 		if ( foo.parent_id == sel_id )
 		{
+			na++;
 			// if ( na == 0 )
 			// {
 			// 	na++;
@@ -45,7 +46,7 @@ for (const [key, value] of Object.entries(titelliste)) {
 			newoption.text = foo.name;
 			newoption.value = foo._id;
 			newoption.id = 'menu_id' + foo._id;
-			document.getElementById('Select'+(na+1)).appendChild( newoption );
+			document.getElementById('Select2').appendChild( newoption );
 
 		}
 		kk++;
