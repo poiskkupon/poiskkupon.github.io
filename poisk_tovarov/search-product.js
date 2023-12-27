@@ -14,7 +14,7 @@ var newoptio = document.createElement("option");
 newoptio.text = 'Все подкатегории';
 newoptio.value = 'allsubcategories';
 newoptio.id = 'menu_idall';
-document.getElementById('Select'+(na+1)).appendChild( newoption );
+document.getElementById('Select2').appendChild( newoptio );
 	
 
 	
