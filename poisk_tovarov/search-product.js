@@ -76,17 +76,17 @@ categ1.sort();
 
 // add все категории
 	
-var selectt = document.getElementById("Select");
-var optionn = document.createElement("option");
-optionn.text = 'Все категории' ; //titelliste[k].name;
-optionn.value = 'vse'; //titelliste[k]._id;
-optionn.id = 'menu_idvse'; //titelliste[k]._id;
-optionn.addEventListener('click', function handleClick(event) 
-{
-	//console.log('element clicked 🎉🎉🎉', event.target.id);});
-	select.appendChild( optionn );
-}
-);
+// var selectt = document.getElementById("Select");
+// var optionn = document.createElement("option");
+// optionn.text = 'Все категории' ; //titelliste[k].name;
+// optionn.value = 'vse'; //titelliste[k]._id;
+// optionn.id = 'menu_idvse'; //titelliste[k]._id;
+// optionn.addEventListener('click', function handleClick(event) 
+// {
+// 	//console.log('element clicked 🎉🎉🎉', event.target.id);});
+// 	select.appendChild( optionn );
+// }
+// );
 
 
 	
