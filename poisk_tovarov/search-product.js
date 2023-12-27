@@ -74,7 +74,16 @@ while ( l < Object.keys(titelliste).length  )
 
 categ1.sort();
 
-
+// add все категории
+	
+var select = document.getElementById("Select");
+var option = document.createElement("option");
+option.text = 'Все категории' ; //titelliste[k].name;
+option.value = 'vse'; //titelliste[k]._id;
+option.id = 'menu_idvse'; //titelliste[k]._id;
+option.addEventListener('click', function handleClick(event) {
+//console.log('element clicked 🎉🎉🎉', event.target.id);});
+select.appendChild( option );
 
 
 	
