@@ -10,6 +10,11 @@ d.onchange=function( )
 	na = 0;
 	kk = 1;
 
+var newselect = document.createElement("select");
+newselect.id = 'Select2';
+newselect.onchange = 'newselection()';
+kol.appendChild( newselect );	
+	
 var newoptio = document.createElement("option");
 newoptio.text = 'Все подкатегории';
 newoptio.value = 'allsubcategories';
@@ -26,15 +31,15 @@ for (const [key, value] of Object.entries(titelliste)) {
 		foo = titelliste[ kk ];
 		if ( foo.parent_id == sel_id )
 		{
-			if ( na == 0 )
-			{
-				na++;
-				var newselect = document.createElement("select");
-				newselect.id = 'Select' + (na+1);
-				newselect.onchange = 'newselection()';
+			// if ( na == 0 )
+			// {
+			// 	na++;
+			// 	var newselect = document.createElement("select");
+			// 	newselect.id = 'Select' + (na+1);
+			// 	newselect.onchange = 'newselection()';
 
-				kol.appendChild( newselect );
-			}
+			// 	kol.appendChild( newselect );
+			// }
 			var newoption = document.createElement("option");
 
 			newoption.text = foo.name;
