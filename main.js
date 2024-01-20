@@ -61,7 +61,7 @@ function filtering ( e , a )
                 if ( searchcompany == companies_all ) n = n + 1;
                     //else n = n* 0;
             }
-        if ( testi3[ p ].children[6].innerText == searchtype && searchtype != types_all ) n = n + 1;
+        if ( testi3[ p ].children[5].innerText == searchtype && searchtype != types_all ) n = n + 1;
             else
             {
                 if ( searchtype == types_all ) n = n + 1;
