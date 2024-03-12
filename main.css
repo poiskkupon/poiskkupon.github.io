@@ -166,8 +166,10 @@ body {
 .gs_link {
   display: flex;
   justify-content: center;
+  text-wrap: nowrap;
   align-items: center;
 /*   font-size: 3em; */
+  line-height: 3rem;
   text-align:center;
 }
 .gs_descr
