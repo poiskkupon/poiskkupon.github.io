@@ -271,7 +271,7 @@ async function searchXML( page='')
 				document.getElementById('results').appendChild(mag);
 
 				var mag = document.createElement("div");
-				mag.innerHTML = '<ul id="productlist" class="products columns-3"></ul>';
+				mag.innerHTML = '<div id="mainbox" class="products columns-3"></ul>';
 				document.getElementById('results').appendChild(mag);
 	
     input = document.getElementById("input").value;
@@ -311,19 +311,19 @@ async function searchXML( page='')
 			if ( oldprice != 0 ) skidka = 'skidochka'; else {skidka ='bez skidki'; oldprice = price;}
 			shopname = xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.slice(xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 3)+2,xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 10)) ; 
 			
-			divText = '<a href="' + url + '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 
-			' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
-			
+			//divText = '<a href="' + url + '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
+			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
+
 			
 		}
 	
 		}
-		dd = document.createElement("li");
+		dd = document.createElement("div");
 
 		dd.innerHTML = divText;
-		document.getElementById('productlist').appendChild(dd);		
+		document.getElementById('mainbox').appendChild(dd);
 		// dd.id = 'ttt';
-		dd.className = 'product type-product post-49663 status-publish  instock product_cat-25475 product_tag-hobby-bike product_tag-24848 product_tag--hobby-bike product_tag-25477 product_tag-6514 sale shipping-taxable purchasable product-type-simple';
+		dd.className = 'card';
 
     }
 				var magj = document.createElement("div");
@@ -441,7 +441,7 @@ function showPage(pageNum)
 
 				//создаём список товаров				
 				var mag = document.createElement("div");
-				mag.innerHTML = '<ul id="productlist" class="products columns-3"></ul>';
+				mag.innerHTML = '<div id="mainbox" class="products columns-3"></ul>';
 				//element.appendChild(document.createTextNode(divText));
 				document.getElementById('results').appendChild(mag);
 	
@@ -488,8 +488,7 @@ function showPage(pageNum)
 			if ( oldprice != 0 ) skidka = 'skidochka'; else {skidka ='bez skidki'; oldprice = price;}
 			shopname = xmlD.getElementsByTagName("offer")[i].children[j].textContent.slice(xmlD.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 3)+2,xmlD.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 10)) ; 
 			
-			divText = '<a href="' + url + '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' +
-			' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
+			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' +	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
 		}
 	
 	}
@@ -500,10 +499,10 @@ function showPage(pageNum)
 		
 		
 		
-		dd = document.createElement("li");
+		dd = document.createElement("div");
 
 		dd.innerHTML = divText;
-		document.getElementById('productlist').appendChild(dd);		
+		document.getElementById('mainbox').appendChild(dd);
 		// dd.id = 'ttt';
 		dd.className = 'product type-product post-49663 status-publish  instock product_cat-25475 product_tag-hobby-bike product_tag-24848 product_tag--hobby-bike product_tag-25477 product_tag-6514 sale shipping-taxable purchasable product-type-simple';
 		console.log(i);
