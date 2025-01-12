@@ -1,0 +1,63 @@
+.code
+{
+    text-align: center;
+    font-weight: bolder;
+    color: seagreen;
+    font-family: Poppins;
+}
+
+.card{
+    width: 350px;
+    border: 1px solid gray;
+    box-shadow: 1px 1px 3px #888;
+    border-top: 10px solid green;
+    min-height: 250px;
+    padding-: 10px;
+    margin: 10px;
+      padding: 2rem;
+}
+
+img{
+/*    border-radius: 50%;*/
+/*    width: 70px;*/
+    margin: 10px;
+    width: 25%;
+    width: 90%;
+    margin: 10px;
+    height: 4rem;
+    object-fit: contain;
+}
+
+h1{
+    font-weight: lighter;
+/*    margin-left: 100px;*/
+  margin-top: 1rem;
+  text-align:center;
+  font-size: inherit;
+}
+
+p{
+    overflow: hidden;
+    margin: 10px;
+    font-family: segoe ui;
+    line-height: 1.4em;
+    font-size: 1.2em;
+}
+
+#mainbox{
+
+margin-top:7rem;
+font-family: calibri;
+box-sizing: border-box;
+justify-content: center;
+/*display: flex;
+flex-wrap: wrap;*/
+display: flex;
+flex-wrap: wrap;
+}
+
+.tag_ad
+{
+  font-size: 0.6rem;
+  font-size: xx-small;
+}
