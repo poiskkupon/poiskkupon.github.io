@@ -210,7 +210,7 @@ async function searchXML( page='')
 	{
 		var showingpagenum = page;
 	}
-	for ( p = 19 ; p > 0 ; p--  )
+	for ( p = 3 ; p > 0 ; p--  )
 	{
 		lastsearch = "https://api.gdeslon.ru/api/search.xml?q=" + searchquery + "&l=100&p=" + p + atob(cd + 'g')  + shopoff + notid + accsoff + bookoff + tid ;
 	    twoToneButton.innerHTML = 'Ищем... ' + p ;
@@ -272,6 +272,7 @@ async function searchXML( page='')
 
 				var mag = document.createElement("div");
 				mag.innerHTML = '<div id="mainbox" class="products columns-3"></ul>';
+				mag.className = 'niz_pagination';
 				document.getElementById('results').appendChild(mag);
 	
     input = document.getElementById("input").value;
@@ -343,6 +344,7 @@ async function searchXML( page='')
 					document.getElementById('results').appendChild(nizpagination);
 
 	twoToneButton.innerHTML = 'Нажмите для поиска';
+	console.log( ' konec ');
 
 }
 
@@ -521,6 +523,9 @@ function showPage(pageNum)
 				var nizpagination = document.createElement("div");
 				nizpagination.innerHTML = document.getElementById('pagination').innerHTML;
 				document.getElementById('results').appendChild(nizpagination);
+
+
+				console.log( ' konec showpage');
 
 }
 
