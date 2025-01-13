@@ -344,7 +344,7 @@ async function searchXML( page='')
 					document.getElementById('results').appendChild(nizpagination);
 
 	twoToneButton.innerHTML = 'Нажмите для поиска';
-	console.log( ' konec ');
+	//console.log( ' konec ');
 
 }
 
@@ -525,7 +525,7 @@ function showPage(pageNum)
 				document.getElementById('results').appendChild(nizpagination);
 
 
-				console.log( ' konec showpage');
+				//console.log( ' konec showpage');
 
 }
 
