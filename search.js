@@ -86,7 +86,7 @@ function search_coupons()
                     //showed_merchants.push ( obj[i].merchantname );
                     //showed_categories.push ( obj[i].couponcategory );
                     //merchantid = obj[i].tagging_ads;
-                    mainboxhtml = mainboxhtml + '<div class="card"><img src="' + obj[i].logo + '" alt="" /><h1><a href="' + obj[i].url + '">' + obj[i].merchantname + '</a></h1><p>' + obj[i].description + '</p><p class="tag_ad">' + obj[i].tagging_ads + '</p><p class="code">' + pr_code + '</p></div>';
+                    mainboxhtml = mainboxhtml + '<div class="card"><img src="' + obj[i].logo + '" alt="" /><h1><a href="' + obj[i].url + '">' + obj[i].merchantname + '</a></h1><p>' + obj[i].description + '</p><p class="tag_ad">' + obj[i].tagging_ads + '</p><p class="code">Промокод: ' + pr_code + '</p></div>';
                 }
             }
             else

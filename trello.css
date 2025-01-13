@@ -7,6 +7,8 @@
 }
 
 .card{
+  background-color: wheat;
+
     width: 350px;
     border: 1px solid gray;
     box-shadow: 1px 1px 3px #888;
