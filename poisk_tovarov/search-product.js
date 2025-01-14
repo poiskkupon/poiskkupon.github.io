@@ -309,11 +309,11 @@ async function searchXML( page=9999)
 					mag.innerHTML = '<h2 id="shop-name" text-align="center">Найдено более ' + ( ( maxpage-2 )* 100) + ' товаров. Страница 1 . Показано: '+ x.length + '</h2>';
 				else
 					mag.innerHTML = '<h2 id="shop-name" text-align="center">Найдено более ' + ( ( maxpage-2 )* 100) + ' товаров. Страница ' + ( pageList.length - page + 1) + ' . Показано: '+ x.length + '</h2>';
+				//mag.className = 'niz_pagination';
 				document.getElementById('results').appendChild(mag);
 
 				var mag = document.createElement("div");
 				mag.innerHTML = '<div id="mainbox" class="products columns-3"></ul>';
-				mag.className = 'niz_pagination';
 				document.getElementById('results').appendChild(mag);
 	
     input = document.getElementById("input").value;
@@ -363,13 +363,14 @@ async function searchXML( page=9999)
 		dd = document.createElement("div");
 
 		dd.innerHTML = divText;
+		//dd.className = 'niz_pagination';
 		document.getElementById('mainbox').appendChild(dd);
 		// dd.id = 'ttt';
 		dd.className = 'card';
 
     }
 				var magj = document.createElement("div");
-				
+				//magj.classList = 'pagination';
 				
 				magj.innerHTML = '<h2 id="shop-name-down" text-align="center">Найдено более ' + ( maxpage - 2) * 100  + ' товаров. Страница ' + ( pageList.length - page ) + ' . Показано: '+ x.length + '</h2>';
 				document.getElementById('results').appendChild(magj);
@@ -382,6 +383,7 @@ async function searchXML( page=9999)
 
 				var nizpagination = document.createElement("div");
 					nizpagination.innerHTML = document.getElementById('pagination').innerHTML;
+					nizpagination.classList = 'niz_pagination';
 					document.getElementById('results').appendChild(nizpagination);
 
 	twoToneButton.innerHTML = 'Нажмите для поиска';

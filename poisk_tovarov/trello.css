@@ -60,3 +60,21 @@ flex-wrap: wrap;
   font-size: 0.6rem;
   font-size: xx-small;
 }
+
+
+
+
+.niz_pagination
+{
+  display: flex;
+
+}
+
+.pagenumber
+{
+  padding:0.4rem;
+}
+
+#pagination {
+  display: flex;
+}
