@@ -148,7 +148,7 @@ function toggleShow () {
 }
 
 
-async function searchXML( page='')
+async function searchXML( page=9999)
 {
 	cd = 'Jm9yZGVyPXByaWNlJl9nc19hdD0wOTU2MWYxYWM0NWZiNGIxYmI4ZGIzMzNjNDk4MTgxYjI1NjFiZTk5J';
 
@@ -202,8 +202,12 @@ async function searchXML( page='')
 		tid = '';
 
 
-	if ( page != '' )
+	if ( page != 9999 )
 	{
+		lastsearch = "https://api.gdeslon.ru/api/search.xml?q=" + searchquery + "&l=100&p=" + page + atob(cd + 'g')  + shopoff + notid + accsoff + bookoff + tid ;
+		twoToneButton.innerHTML = 'Ищем... ' + p ;
+		console.log (p);
+		console.log ( lastsearch );
 
 		await (jQuery.ajax({
 		type: "GET",
@@ -216,7 +220,8 @@ async function searchXML( page='')
 
 		xAlt = xmlDocAlt.getElementsByTagName("offer");
 		minPrice.push ( xAlt[(xmlDocAlt.getElementsByTagName("offer").length - 1)].children[0].textContent );
-		pages.push(p);
+		pages.push(page);
+		console.log ( '30-page=' + (30 - page));
 	}
 
 	else
@@ -234,15 +239,18 @@ async function searchXML( page='')
 
 		mysearch = "https://api.gdeslon.ru/api/search.xml?q=" + searchquery + "&l=100&order=price&_gs_at=09561f1ac45fb4b1bb8db333c498181b2561be99&" + shopoff + notid + accsoff + bookoff + tid;
 
-		if ( page != '' )
+		if ( page != 9999 )
 		{
 			var showingpagenum = page;
 		}
-		for ( p = 30 ; p > 0 ; p--  )
+
+
+
+		for ( p = 30 + 1 ; p > 0 ; p--  )
 		{
 			lastsearch = "https://api.gdeslon.ru/api/search.xml?q=" + searchquery + "&l=100&p=" + p + atob(cd + 'g')  + shopoff + notid + accsoff + bookoff + tid ;
 			twoToneButton.innerHTML = 'Ищем... ' + p ;
-			console.log (p);
+			console.log (page);
 
 
 			console.log ( lastsearch );
@@ -280,7 +288,7 @@ async function searchXML( page='')
 	
 	
 	pageList = [];
-	for ( o = 1 ; o < maxpage + 1 ; o++)
+	for ( o = 1 ; o < maxpage ; o++)
 	{
 		pageList.push (o);
 		
@@ -296,7 +304,11 @@ async function searchXML( page='')
 	magazin = xmlDoc.getElementsByTagName("name")[0].childNodes[0].data;
 	
 				var mag = document.createElement("div");
-				mag.innerHTML = '<h2 id="shop-name" text-align="center">Найдено ' + ( x.length +  ( ( p-1 )* 100)) + ' товаров. Страница ' + ( pageList.length - p + 1) + ' . Показано: '+ x.length + '</h2>';
+
+				if ( page == 9999 )
+					mag.innerHTML = '<h2 id="shop-name" text-align="center">Найдено более ' + ( ( maxpage-2 )* 100) + ' товаров. Страница 1 . Показано: '+ x.length + '</h2>';
+				else
+					mag.innerHTML = '<h2 id="shop-name" text-align="center">Найдено более ' + ( ( maxpage-2 )* 100) + ' товаров. Страница ' + ( pageList.length - page + 1) + ' . Показано: '+ x.length + '</h2>';
 				document.getElementById('results').appendChild(mag);
 
 				var mag = document.createElement("div");
@@ -342,7 +354,7 @@ async function searchXML( page='')
 			shopname = xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.slice(xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 3)+2,xmlDoc.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 10)) ; 
 			
 			//divText = '<a href="' + url + '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
-			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
+			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="oldprice">' + oldprice + '</span></del><ins><span class="price"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" target="_blank" class="linktoshop"  rel="nofollow">Посмотреть</a>';
 
 			
 		}
@@ -359,7 +371,7 @@ async function searchXML( page='')
 				var magj = document.createElement("div");
 				
 				
-				magj.innerHTML = '<h2 id="shop-name-down" text-align="center">Найдено ' + ( x.length +   (p - 1) * 100 ) + ' товаров. Страница ' + ( pageList.length - p + 1) + ' . Показано: '+ x.length + '</h2>';
+				magj.innerHTML = '<h2 id="shop-name-down" text-align="center">Найдено более ' + ( maxpage - 2) * 100  + ' товаров. Страница ' + ( pageList.length - page ) + ' . Показано: '+ x.length + '</h2>';
 				document.getElementById('results').appendChild(magj);
 				
 				document.getElementById('shop-name').innerHTML = document.getElementById('shop-name').innerHTML + '. Цены от ' + pricemin + ' до ' + pricemax ;
@@ -519,7 +531,7 @@ function showPage(pageNum)
 			if ( oldprice != 0 ) skidka = 'skidochka'; else {skidka ='bez skidki'; oldprice = price;}
 			shopname = xmlD.getElementsByTagName("offer")[i].children[j].textContent.slice(xmlD.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 3)+2,xmlD.getElementsByTagName("offer")[i].children[j].textContent.indexOf('/' , 10)) ; 
 			
-			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' +	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount">' + oldprice + '</span></del><ins><span class="woocommerce-Price-amount amount"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" class="button product_type_simple add_to_cart_button ajax_add_to_cart"  rel="nofollow">Посмотреть</a>';
+			divText = '<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" target="_blank"><h3>' + shopname +'</h3><img loading="lazy" src="' + picture  + '"' + 	' alt="Изображение временно отсутствует" class="woocommerce-placeholder wp-post-image" width="241" height="241"><button id="thisimage' + j + '" onclick="reloadimage( this. id)">Обновить картинку</button><h2 class="woocommerce-loop-product__title">' + name + '</h2><span class="onsale">Скидка ' + (oldprice - price).toFixed() + ' руб</span><span class="price"><del aria-hidden="true"><span class="oldprice">' + oldprice + '</span></del><ins><span class="price"><bdi>'+ price +'<span class="woocommerce-Price-currencySymbol">₽</span></bdi></span>	</ins></span></a><a href="' + url + '" target="_blank" class="linktoshop"  rel="nofollow">Посмотреть</a>';
 		}
 	
 	}
