@@ -194,28 +194,40 @@ async function searchXML( page=9999)
 	}
 
 
-	setTimeout(function() {
-		//your code to be executed after 1 second
-	}, 100);
-	if ( document.getElementById('Select2').selectedOptions[0] != undefined )
+	if ( document.getElementById('Select2').selectedOptions[0] != undefined && document.getElementById('Select2').selectedOptions[0].value != 'allsubcategories' )
 	{
+		console.log ('allsubcategories')
 		tid = '&tid=' + document.getElementById('Select2').selectedOptions[0].value ;
 		searchpage = 10;
 	}
 	else
-		tid = '';
+		if ( document.getElementById('Select').selectedOptions[0].value != 'vse'  )
+		{
+			tid = '&tid=' + document.getElementById('Select').selectedOptions[0].value;
+			searchpage = 10;
+		}
+		else
+			tid = '';
 
-	if (document.getElementById('Select2').selectedOptions[0].value == 'allsubcategories')
-		tid = '&tid=' + document.getElementById('Select2').selectedOptions[0].value ;
+	console.log ( 'tid = ' + tid );
+
+	// if (document.getElementById('Select2').selectedOptions[0].value == 'allsubcategories')
+	// 	tid = '&tid=' + document.getElementById('Select2').selectedOptions[0].value ;
 
 	console.log(tid);
 
 	if ( page != 9999 )
 	{
+
+		setTimeout(function() {
+			//your code to be executed after 1 second
+		}, 400);
+
+
 		lastsearch = "https://api.gdeslon.ru/api/search.xml?q=" + searchquery + "&l=100&p=" + page + atob(cd + 'g')  + shopoff + notid + accsoff + bookoff + tid ;
 		twoToneButton.innerHTML = 'Ищем... ' + p ;
-		console.log (p);
-		console.log ( lastsearch );
+		//console.log (p);
+		//console.log ( lastsearch );
 
 		await (jQuery.ajax({
 		type: "GET",
@@ -229,7 +241,7 @@ async function searchXML( page=9999)
 		xAlt = xmlDocAlt.getElementsByTagName("offer");
 		minPrice.push ( xAlt[(xmlDocAlt.getElementsByTagName("offer").length - 1)].children[0].textContent );
 		pages.push(page);
-		console.log ( 'searchpage-page=' + (searchpage - page));
+		//console.log ( 'searchpage-page=' + (searchpage - page));
 	}
 
 	else
@@ -291,7 +303,7 @@ async function searchXML( page=9999)
 		}
 
 	}
-	console.log('test');
+	//console.log('test');
 	
 	if (typeof maxpage == 'undefined') {
 				var mag = document.createElement("div");
