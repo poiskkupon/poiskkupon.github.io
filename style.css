@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+.input_text_place
+{
+  box-shadow: -10px 10px 20px;
+  z-index: 88888;
 
+}
 
 .check_promo
 {
