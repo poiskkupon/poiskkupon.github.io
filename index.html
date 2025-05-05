@@ -1,4 +1,4 @@
-
+<head>
 <meta charset="utf-8">
 
   <!-- Icon -->
@@ -14,7 +14,8 @@
       rel="stylesheet"
       href="trello.css"
     />
-
+    <meta name="google-site-verification" content="OX1lHcEcjOf81sYL-qrVX2git7I-T5rci7t2D7rvnI0" />
+</head>
 <!-- Code -->
 <div class="input-box"  onchange="search_coupons()">
       <input type="text" class="input_text_place" placeholder="Поиск акций..."/>
@@ -50,10 +51,45 @@
 async function getcoupons ()
 {
     jQuery.get('data/coupon_string', function(data) {
-        xmlstr = data
+         xmlstr = data
     });
 }
 
-xmlstr =  getcoupons ();
+//xmlstr =  await getcoupons ();  // command waits until completion
+
+async function caller() {
+    xmlstr = await this.getcoupons();  // command waits until completion
+    console.log(xmlstr);            // hello is now available
+}
+
+caller ();
+
+
+
+
+fetch('data/coupon_string')
+  .then(response => response.text()) // Or use .json() if it's JSON data
+  .then(data => {
+    xmlstr = data;
+    //console.log("Data received and decoded:", data);
+      // Place the next part of the code here
+    processData(data);
+  })
+
+function processData(data) {
+    console.log("Processing the data now...");
+  // Your further logic here
+    obj = JSON.parse(xmlstr);
+
+
+
+    thisurl = window.location.search;
+    params = new URLSearchParams(thisurl);
+    search_query = params.get('search');
+    document.getElementsByClassName('input-box')[0].children[0].value = search_query;
+    search_coupons();
+    }
+
+
 
 </script>

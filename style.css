@@ -19,16 +19,16 @@
 }
 body {
   min-height: 100vh;
-/*  display: flex;*/
+  /*  display: flex;*/
   justify-content: center;
   align-items: center;
   background-color: #efa94a;
-/*  overflow: hidden;*/
+  /*  overflow: hidden;*/
 }
 .input-box {
   position: relative;
   width: 100%;
-  max-width: 60px;
+  max-width: 350px;
   height: 55px;
   margin: auto;
   margin-top: auto;
@@ -105,7 +105,7 @@ body {
   display: flex;
   justify-content: center;
   /*align-items: center;*/
-  background-color: #fff;
+  /*    background-color: #fff;*/
   /*border-radius: 6px;*/
   cursor: pointer;
 }
@@ -114,16 +114,32 @@ body {
 .additional_categories
 {
   position: fixed;
-  top: 2rem;
+  top: 4rem;
   left: 0;
   width: auto;
   /*height: 100%;*/
   display: flex;
   justify-content: center;
-/*  align-items: center;*/
-  background-color: #fff;
-/*  border-radius: 6px;*/
+  /*  align-items: center;*/
+  /*    background-color: #fff;*/
+  /*  border-radius: 6px;*/
   cursor: pointer;
 }
 
 
+#merchants
+{
+  border-radius:6px;
+  /*    max-width: 30%;*/
+  height: 55px;
+  margin: auto;
+  margin-top: auto;
+}
+#categories
+{
+  border-radius:6px;
+  /*    max-width: 30%;*/
+  height: 55px;
+  margin: auto;
+  margin-top: auto;
+}
