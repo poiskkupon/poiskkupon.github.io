@@ -8,7 +8,9 @@ const EXCLUDED_TID_BOOKS = "121,123,128,629,655,1105,1984";
 const state = {
   page: 1,
   hasNext: false,
+  maxPage: 0,
   lastQuery: "",
+  lastSignature: "",
 };
 
 const dom = {};
@@ -80,6 +82,34 @@ function buildQueryText() {
   return dom.search.value.trim().replace(/\s+/g, " AND ");
 }
 
+function buildSearchSignature() {
+  return [
+    dom.search.value.trim(),
+    dom.category.value,
+    dom.subcategory.value,
+    dom.noAccessories.checked ? "1" : "0",
+    dom.noAliexpress.checked ? "1" : "0",
+    dom.noBooks.checked ? "1" : "0",
+  ].join("|");
+}
+
+function getProbePageLimit() {
+  return dom.subcategory.value || dom.category.value ? 10 : 30;
+}
+
+function parsePriceNumber(rawPrice) {
+  const normalized = String(rawPrice ?? "")
+    .replace(/\s+/g, "")
+    .replace(/,/g, ".")
+    .replace(/[^0-9.]/g, "");
+  const parsed = Number.parseFloat(normalized);
+  return Number.isFinite(parsed) ? parsed : Number.POSITIVE_INFINITY;
+}
+
+function sortOffersByPriceAsc(items) {
+  return [...items].sort((a, b) => parsePriceNumber(a.price) - parsePriceNumber(b.price));
+}
+
 function buildUrl(page) {
   const q = buildQueryText();
   const params = new URLSearchParams();
@@ -135,6 +165,19 @@ async function fetchOffers(page) {
   });
 }
 
+async function detectMaxPage() {
+  const probeLimit = getProbePageLimit();
+
+  for (let page = probeLimit + 1; page > 0; page -= 1) {
+    const offers = await fetchOffers(page);
+    if (offers.length > 0) {
+      return page;
+    }
+  }
+
+  return 0;
+}
+
 function renderOffers(items) {
   if (!items.length) {
     dom.results.innerHTML = '<div class="v3p-empty">Ничего не найдено. Попробуйте другой запрос.</div>';
@@ -162,7 +205,7 @@ function renderOffers(items) {
 function renderPagination() {
   dom.pagination.innerHTML = `
     <button class="v3p-page-btn" id="v3p-prev" ${state.page <= 1 ? "disabled" : ""}>Назад</button>
-    <span>Страница ${state.page}</span>
+    <span>Страница ${state.page}${state.maxPage ? ` из ${state.maxPage}` : ""}</span>
     <button class="v3p-page-btn" id="v3p-next" ${state.hasNext ? "" : "disabled"}>Вперед</button>
   `;
 
@@ -186,7 +229,25 @@ async function runSearch(page = 1) {
     return;
   }
 
-  state.page = page;
+  const signature = buildSearchSignature();
+  const shouldRecalcMaxPage = page === 1 || signature !== state.lastSignature || !state.maxPage;
+
+  if (shouldRecalcMaxPage) {
+    state.lastSignature = signature;
+    dom.meta.textContent = "Определяем количество страниц...";
+    state.maxPage = await detectMaxPage();
+    if (!state.maxPage) {
+      state.page = 1;
+      state.hasNext = false;
+      renderOffers([]);
+      renderPagination();
+      dom.meta.textContent = "Ничего не найдено";
+      return;
+    }
+  }
+
+  const safePage = Math.max(1, Math.min(page, state.maxPage));
+  state.page = safePage;
   state.lastQuery = queryRaw;
 
   dom.searchBtn.disabled = true;
@@ -194,11 +255,13 @@ async function runSearch(page = 1) {
   dom.meta.textContent = "Загрузка результатов...";
 
   try {
-    const offers = await fetchOffers(page);
-    state.hasNext = offers.length >= 60;
-    renderOffers(offers);
+    const apiPage = state.maxPage - safePage + 1;
+    const offers = await fetchOffers(apiPage);
+    const sortedOffers = sortOffersByPriceAsc(offers);
+    state.hasNext = safePage < state.maxPage;
+    renderOffers(sortedOffers);
     renderPagination();
-    dom.meta.textContent = `Найдено на странице: ${offers.length}`;
+    dom.meta.textContent = `Найдено на странице: ${sortedOffers.length}. Страница ${safePage} из ${state.maxPage}`;
   } catch (err) {
     dom.results.innerHTML = `<div class="v3p-empty">${escapeHtml(err.message || "Ошибка")}</div>`;
     dom.pagination.innerHTML = "";
