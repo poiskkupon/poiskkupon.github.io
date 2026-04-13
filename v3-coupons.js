@@ -23,6 +23,18 @@ function cleanCouponUrl(coupon) {
   return String(raw).split("<")[0].trim();
 }
 
+function inferMerchantNameFromCouponUrl(coupon) {
+  const rawUrl = cleanCouponUrl(coupon);
+  if (!rawUrl) return "";
+
+  try {
+    const parsed = new URL(rawUrl);
+    return parsed.hostname.replace(/^www\./i, "");
+  } catch {
+    return "";
+  }
+}
+
 function hasPromoCode(code) {
   const norm = String(code ?? "").trim().toLowerCase();
   return norm && norm !== "none" && norm !== "not required" && norm !== "не требуется";
@@ -42,6 +54,8 @@ function getMerchantName(coupon) {
   if (name) return name;
   const mid = String(coupon["merchant-id"] ?? "").trim();
   if (mid && merchantIndex.has(mid)) return merchantIndex.get(mid);
+  const inferredName = inferMerchantNameFromCouponUrl(coupon);
+  if (inferredName) return inferredName;
   return mid ? `Merchant #${mid}` : "Магазин";
 }
 
@@ -148,25 +162,20 @@ function fillFilterOptions() {
 
 async function loadCoupons() {
   const primary = await fetch("data/coupon_stringv3.json", { cache: "no-store" });
-  if (primary.ok) {
-    const payload = await primary.json();
-    if (Array.isArray(payload?.merchants)) {
-      merchantIndex = new Map(
-        payload.merchants
-          .map((item) => [String(item?.id ?? "").trim(), String(item?.name ?? "").trim()])
-          .filter(([id]) => id)
-      );
-    }
-    allCoupons = Array.isArray(payload?.coupons) ? payload.coupons : [];
-    return;
+  if (!primary.ok) {
+    throw new Error(`Ошибка загрузки v3: ${primary.status}`);
   }
 
-  const fallback = await fetch("data/coupon_string", { cache: "no-store" });
-  if (!fallback.ok) {
-    throw new Error(`Ошибка загрузки: ${primary.status}/${fallback.status}`);
+  const payload = await primary.json();
+  if (Array.isArray(payload?.merchants)) {
+    merchantIndex = new Map(
+      payload.merchants
+        .map((item) => [String(item?.id ?? "").trim(), String(item?.name ?? "").trim()])
+        .filter(([id, name]) => id && name)
+    );
   }
-  const text = await fallback.text();
-  allCoupons = JSON.parse(text);
+
+  allCoupons = Array.isArray(payload?.coupons) ? payload.coupons : [];
 }
 
 function bind() {
