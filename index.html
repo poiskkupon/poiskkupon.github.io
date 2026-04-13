@@ -1,95 +1,43 @@
+<!doctype html>
+<html lang="ru">
 <head>
-<meta charset="utf-8">
-
-  <!-- Icon -->
-    <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-    />
-    <link
-      rel="stylesheet"
-      href="style.css"
-    />
-    <link
-      rel="stylesheet"
-      href="trello.css"
-    />
-    <meta name="google-site-verification" content="OX1lHcEcjOf81sYL-qrVX2git7I-T5rci7t2D7rvnI0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PoiskKupon v3 - Поиск промокодов и акций</title>
+  <meta name="description" content="Современный поиск акций и промокодов PoiskKupon." />
+  <link rel="stylesheet" href="v3-coupons.css" />
 </head>
-<!-- Code -->
-<div class="input-box"  onchange="search_coupons()">
-      <input type="text" class="input_text_place" placeholder="Поиск акций..."/>
-      <div class="check_promo">
-      <input type="checkbox" id="promok" name="promok" value="promok">Только промокоды</input>
+<body>
+  <header class="v3-hero">
+    <h1 class="v3-title">PoiskKupon v3</h1>
+    <p class="v3-subtitle">Найдите выгодные акции и промокоды по магазинам и категориям.</p>
+    <div class="v3-search">
+      <input id="v3-search" type="search" placeholder="Поиск по магазинам, акциям и категориям" />
+      <button id="v3-search-btn" type="button">Поиск</button>
+    </div>
+  </header>
 
-      <div class="additional_categories" style="display:none">
-          <select id="categories" name="categories">
-                <option value="all">Все</option>
-            </select>
-      </div>
-      <div class="additional_merchants" style="display:none">
-          <select id="merchants" name="merchants">
-                <option value="all">Все</option>
-            </select>
-      </div>
-</div>
+  <section class="v3-toolbar">
+    <label class="v3-check">
+      <input id="v3-promo-only" type="checkbox" />
+      Только промокоды
+    </label>
 
-      <span class="search">
-        <i class="uil uil-search search-icon"></i>
-      </span>
-      <i class="uil uil-times close-icon"></i>
-</div>
-<div id="mainbox">
-</div>
-<script src="script.js"></script>
-<script src="require.js"></script>
-<script src="search.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
+    <select id="v3-category" class="v3-select" aria-label="Фильтр категории">
+      <option value="all">Все категории</option>
+    </select>
 
+    <select id="v3-merchant" class="v3-select" aria-label="Фильтр магазина">
+      <option value="all">Все магазины</option>
+    </select>
 
-async function getcoupons ()
-{
-    jQuery.get('data/coupon_string', function(data) {
-         xmlstr = data
-    });
-}
+    <div id="v3-count" class="v3-count">Загрузка...</div>
+  </section>
 
-//xmlstr =  await getcoupons ();  // command waits until completion
+  <main class="v3-main">
+    <section id="v3-grid" class="v3-grid" aria-live="polite"></section>
+  </main>
 
-async function caller() {
-    xmlstr = await this.getcoupons();  // command waits until completion
-    console.log(xmlstr);            // hello is now available
-}
-
-caller ();
-
-
-
-
-fetch('data/coupon_string')
-  .then(response => response.text()) // Or use .json() if it's JSON data
-  .then(data => {
-    xmlstr = data;
-    //console.log("Data received and decoded:", data);
-      // Place the next part of the code here
-    processData(data);
-  })
-
-function processData(data) {
-    console.log("Processing the data now...");
-  // Your further logic here
-    obj = JSON.parse(xmlstr);
-
-
-
-    thisurl = window.location.search;
-    params = new URLSearchParams(thisurl);
-    search_query = params.get('search');
-    document.getElementsByClassName('input-box')[0].children[0].value = search_query;
-    search_coupons();
-    }
-
-
-
-</script>
+  <script src="v3-coupons.js"></script>
+</body>
+</html>

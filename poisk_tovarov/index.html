@@ -1,51 +1,70 @@
 <!doctype html>
-<html>
+<html lang="ru">
 <head>
-    <!-- jquery from google and mobile jquery -->
-    <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="categories.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="trello.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <!-- end of jquery from google and mobile jquery -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PoiskKupon v3 - Поиск товаров</title>
+  <meta name="description" content="Обновленный интерфейс поиска товаров с XML ответами GdeSlon." />
+  <script src="categories.js"></script>
+  <link rel="stylesheet" href="v3-products.css" />
 </head>
 <body>
-    <script src="categories.js" ></script>
-  <input type="checkbox" name="notid" id="notid" checked>Поиск без аксессуаров</input>
-  <input type="checkbox" name="aliexpress" id="aliexpress" checked>Поиск без Aliexpressa</input>
-  <input type="checkbox" name="nobooks" id="nobooks" checked>Поиск без книг</input>
+  <header class="v3p-hero">
+    <h1>Поиск товаров v3</h1>
+    <p>Поиск по XML-каталогу с быстрыми фильтрами, категориями и удобным мобильным интерфейсом.</p>
+  </header>
 
-<div id="categs">
-        <select id="Select">
-            <value>товары</value>
-            <value>продукты</value>
-            <value>услуги</value>
-            <value></value>
-        </select>
-        <select id="Select2">
-            <value>товары</value>
-            <value>продукты</value>
-            <value>услуги</value>
-            <value></value>
-        </select>
+  <section class="v3p-panel">
+    <div class="v3p-grid">
+      <div class="v3p-field v3p-search-wrap">
+        <label for="v3p-search">Запрос</label>
+        <input id="v3p-search" class="v3p-input" type="search" placeholder="Например: кроссовки nike" />
+      </div>
 
-</div>
-<div>
-    <input id="input" type="text" onchange="searchXML()"/>
-</div>
-<button class="startbutton" onclick="searchXML()">нажмите для старта </button>
+      <div class="v3p-inline-row">
+        <div class="v3p-field v3p-cat-wrap">
+          <label for="v3p-category">Категория</label>
+          <select id="v3p-category" class="v3p-select">
+            <option value="">Все категории</option>
+          </select>
+        </div>
 
-    <div id="pagination">
+        <div class="v3p-field v3p-subcat-wrap">
+          <label for="v3p-subcategory">Подкатегория</label>
+          <select id="v3p-subcategory" class="v3p-select">
+            <option value="">Все подкатегории</option>
+          </select>
+        </div>
 
+        <div class="v3p-action-wrap">
+          <button id="v3p-search-btn" class="v3p-btn" type="button">Искать</button>
+        </div>
+      </div>
+
+      <div class="v3p-filters">
+        <label class="v3p-check">
+          <input id="v3p-no-accessories" type="checkbox" checked />
+          Без аксессуаров
+        </label>
+        <label class="v3p-check">
+          <input id="v3p-no-aliexpress" type="checkbox" checked />
+          Без Aliexpress
+        </label>
+        <label class="v3p-check">
+          <input id="v3p-no-books" type="checkbox" checked />
+          Без книг
+        </label>
+      </div>
+
+      <div id="v3p-meta" class="v3p-meta"></div>
     </div>
+  </section>
 
-<div id="results">
+  <main class="v3p-main">
+    <div id="v3p-pagination" class="v3p-pagination"></div>
+    <section id="v3p-results" class="v3p-results" aria-live="polite"></section>
+  </main>
 
-</div>
+  <script src="v3-products.js"></script>
 </body>
-
-
-<script src="search-product.js" ></script>
+</html>
