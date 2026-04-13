@@ -1,6 +1,7 @@
 "use strict";
 
 let allCoupons = [];
+let merchantIndex = new Map();
 
 const dom = {};
 
@@ -40,6 +41,7 @@ function getMerchantName(coupon) {
   const name = String(coupon.merchantname ?? "").trim();
   if (name) return name;
   const mid = String(coupon["merchant-id"] ?? "").trim();
+  if (mid && merchantIndex.has(mid)) return merchantIndex.get(mid);
   return mid ? `Merchant #${mid}` : "Магазин";
 }
 
@@ -49,6 +51,12 @@ function getLogo(coupon) {
   const mid = String(coupon["merchant-id"] ?? "").trim();
   if (mid) return `logos/${mid}.webp`;
   return "";
+}
+
+function getCategoryName(coupon) {
+  const nestedCategory = String(coupon?.category?.name ?? "").trim();
+  if (nestedCategory) return nestedCategory;
+  return String(coupon.couponcategory ?? "").trim() || "Без категории";
 }
 
 function applyFilters() {
@@ -64,7 +72,7 @@ function applyFilters() {
   }
 
   if (category !== "all") {
-    rows = rows.filter((x) => String(x.couponcategory ?? "") === category);
+    rows = rows.filter((x) => getCategoryName(x) === category);
   }
 
   if (merchant !== "all") {
@@ -73,7 +81,7 @@ function applyFilters() {
 
   if (query) {
     rows = rows.filter((x) => {
-      const bag = [x.name, x.description, x.instruction, x.kind, x.couponcategory, x.code, getMerchantName(x)]
+      const bag = [x.name, x.description, x.instruction, x.kind, getCategoryName(x), x.code, x.tagging_ads, getMerchantName(x)]
         .join(" ")
         .toLowerCase();
       return bag.includes(query);
@@ -99,6 +107,8 @@ function renderRows(rows) {
       const url = cleanCouponUrl(coupon);
       const logo = getLogo(coupon);
       const finish = formatDate(coupon["finish-at"]);
+      const category = getCategoryName(coupon);
+      const taggingAds = String(coupon.tagging_ads ?? "").trim();
 
       return `
         <article class="v3-card">
@@ -107,7 +117,7 @@ function renderRows(rows) {
             <img class="v3-logo" src="${escapeHtml(logo)}" alt="${escapeHtml(merchant)}" onerror="this.style.display='none'" />
             <div>
               <div class="v3-merchant">${escapeHtml(merchant)}</div>
-              <div class="v3-category">${escapeHtml(coupon.couponcategory || "Без категории")}</div>
+              <div class="v3-category">${escapeHtml(category)}</div>
             </div>
           </div>
           <div class="v3-body">
@@ -118,6 +128,7 @@ function renderRows(rows) {
               <span class="v3-dates">${escapeHtml(coupon.kind || "Акция")}</span>
               <a class="v3-btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Перейти</a>
             </div>
+            ${taggingAds ? `<div class="v3-tagging">${escapeHtml(taggingAds)}</div>` : ""}
           </div>
         </article>`;
     })
@@ -125,7 +136,7 @@ function renderRows(rows) {
 }
 
 function fillFilterOptions() {
-  const categories = uniq(allCoupons.map((x) => x.couponcategory));
+  const categories = uniq(allCoupons.map((x) => getCategoryName(x)));
   const merchants = uniq(allCoupons.map((x) => getMerchantName(x)));
 
   dom.category.innerHTML = '<option value="all">Все категории</option>' +
@@ -136,11 +147,25 @@ function fillFilterOptions() {
 }
 
 async function loadCoupons() {
-  const response = await fetch("data/coupon_string", { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Ошибка загрузки: ${response.status}`);
+  const primary = await fetch("data/coupon_stringv3.json", { cache: "no-store" });
+  if (primary.ok) {
+    const payload = await primary.json();
+    if (Array.isArray(payload?.merchants)) {
+      merchantIndex = new Map(
+        payload.merchants
+          .map((item) => [String(item?.id ?? "").trim(), String(item?.name ?? "").trim()])
+          .filter(([id]) => id)
+      );
+    }
+    allCoupons = Array.isArray(payload?.coupons) ? payload.coupons : [];
+    return;
   }
-  const text = await response.text();
+
+  const fallback = await fetch("data/coupon_string", { cache: "no-store" });
+  if (!fallback.ok) {
+    throw new Error(`Ошибка загрузки: ${primary.status}/${fallback.status}`);
+  }
+  const text = await fallback.text();
   allCoupons = JSON.parse(text);
 }
 

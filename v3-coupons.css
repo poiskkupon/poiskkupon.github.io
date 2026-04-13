@@ -231,6 +231,13 @@ body {
   gap: 8px;
 }
 
+.v3-tagging {
+  margin-top: 6px;
+  color: #8a93ad;
+  font-size: 0.62rem;
+  line-height: 1.25;
+}
+
 .v3-btn {
   text-decoration: none;
   border-radius: 999px;
