@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+:root {
+  --bg: #f6f8fc;
+  --surface: #ffffff;
+  --text: #17223a;
+  --muted: #66708b;
+  --border: #dbe2f0;
+  --brand: #0b5fa5;
+  --brand-2: #0ea5a3;
+  --warn: #f59e0b;
+  --ok: #16a34a;
+  --shadow: 0 10px 30px rgba(9, 20, 52, 0.08);
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(900px 500px at 0 -10%, #d9eaff 0, transparent 60%),
+    radial-gradient(800px 420px at 100% -8%, #dff9f5 0, transparent 58%),
+    var(--bg);
+}
+
+.v3p-hero {
+  padding: 26px 14px 90px;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(125deg, #13407a 0%, #0b5fa5 58%, #0ea5a3 100%);
+}
+
+.v3p-hero h1 {
+  margin: 0;
+  font-size: clamp(1.45rem, 4vw, 2.3rem);
+  font-weight: 800;
+}
+
+.v3p-hero p {
+  margin: 8px auto 0;
+  max-width: 760px;
+  opacity: 0.9;
+}
+
+.v3p-panel {
+  width: min(1200px, calc(100% - 24px));
+  margin: -62px auto 16px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+
+.v3p-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.v3p-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.v3p-field label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.v3p-input,
+.v3p-select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  height: 40px;
+  padding: 0 11px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  color: var(--text);
+  background: #fff;
+}
+
+.v3p-search-wrap { grid-column: span 12; }
+.v3p-cat-wrap { grid-column: span 4; }
+.v3p-subcat-wrap { grid-column: span 4; }
+.v3p-action-wrap { grid-column: span 4; display: flex; align-items: end; }
+
+.v3p-filters {
+  grid-column: span 12;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.v3p-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: #f7f9ff;
+  font-size: 0.88rem;
+}
+
+.v3p-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand);
+}
+
+.v3p-btn {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  height: 40px;
+  color: #fff;
+  font-weight: 800;
+  background: var(--brand);
+  cursor: pointer;
+}
+
+.v3p-meta {
+  grid-column: span 12;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.v3p-main {
+  width: min(1200px, calc(100% - 24px));
+  margin: 0 auto 30px;
+}
+
+.v3p-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+
+.v3p-page-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.v3p-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 12px;
+}
+
+.v3p-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.v3p-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.v3p-card-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.v3p-name {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  min-height: 2.5em;
+}
+
+.v3p-shop {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.v3p-price-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.v3p-price {
+  font-weight: 800;
+  color: var(--ok);
+}
+
+.v3p-old {
+  color: var(--muted);
+  text-decoration: line-through;
+  font-size: 0.86rem;
+}
+
+.v3p-open {
+  margin-top: auto;
+  text-decoration: none;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--brand-2);
+  font-weight: 700;
+}
+
+.v3p-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  background: #fff;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 30px 10px;
+}
+
+@media (max-width: 900px) {
+  .v3p-cat-wrap, .v3p-subcat-wrap, .v3p-action-wrap { grid-column: span 12; }
+}
