@@ -35,6 +35,8 @@ function formatDate(value) {
 }
 
 function getMerchantName(coupon) {
+  const nestedName = String(coupon?.merchant?.name ?? "").trim();
+  if (nestedName) return nestedName;
   const name = String(coupon.merchantname ?? "").trim();
   if (name) return name;
   const mid = String(coupon["merchant-id"] ?? "").trim();
@@ -42,9 +44,11 @@ function getMerchantName(coupon) {
 }
 
 function getLogo(coupon) {
+  const responseLogo = String(coupon.logo ?? "").trim();
+  if (responseLogo) return responseLogo;
   const mid = String(coupon["merchant-id"] ?? "").trim();
   if (mid) return `logos/${mid}.webp`;
-  return coupon.logo || "";
+  return "";
 }
 
 function applyFilters() {
