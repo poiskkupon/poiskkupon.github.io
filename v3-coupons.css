@@ -193,6 +193,12 @@ body {
   object-fit: contain;
   background: #f6f8fd;
   border: 1px solid var(--border);
+  flex: 0 0 64px;
+}
+
+.v3-logo.is-fallback {
+  object-fit: cover;
+  background: linear-gradient(135deg, #d9ecff, #dcfbf4);
 }
 
 .v3-merchant {

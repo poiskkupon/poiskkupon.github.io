@@ -3,6 +3,9 @@
 let allCoupons = [];
 let merchantIndex = new Map();
 
+const LOGO_RETRY_LIMIT = 2;
+const LOGO_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230f4c81'/%3E%3Cstop offset='1' stop-color='%230ea5a3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='72' height='72' rx='14' fill='url(%23g)'/%3E%3Cpath d='M18 27h36l-3 25H21l-3-25Zm6-8h24l4 8H20l4-8Z' fill='%23fff' fill-opacity='.96'/%3E%3Cpath d='M28 35h16v4H28zm0 8h16v4H28z' fill='%230f4c81' fill-opacity='.9'/%3E%3C/svg%3E";
+
 const dom = {};
 
 function escapeHtml(value) {
@@ -73,6 +76,49 @@ function getCategoryName(coupon) {
   return String(coupon.couponcategory ?? "").trim() || "Без категории";
 }
 
+function buildRetriedLogoUrl(src, attempt) {
+  const separator = src.includes("?") ? "&" : "?";
+  return `${src}${separator}img_retry=${attempt}_${Date.now()}`;
+}
+
+function setFallbackLogo(img) {
+  img.dataset.logoFailed = "1";
+  img.classList.add("is-fallback");
+  img.removeAttribute("data-logo-src");
+  img.src = LOGO_PLACEHOLDER;
+}
+
+function attachLogoRecovery(root) {
+  const logos = root.querySelectorAll(".v3-logo");
+
+  for (const img of logos) {
+    const originalSrc = img.dataset.logoSrc || "";
+
+    if (!originalSrc) {
+      setFallbackLogo(img);
+      continue;
+    }
+
+    img.addEventListener("load", () => {
+      img.classList.remove("is-fallback");
+      img.dataset.logoFailed = "0";
+    });
+
+    img.addEventListener("error", () => {
+      const retries = Number.parseInt(img.dataset.retryCount || "0", 10);
+      if (retries < LOGO_RETRY_LIMIT) {
+        img.dataset.retryCount = String(retries + 1);
+        window.setTimeout(() => {
+          img.src = buildRetriedLogoUrl(originalSrc, retries + 1);
+        }, 250 * (retries + 1));
+        return;
+      }
+
+      setFallbackLogo(img);
+    }, { once: false });
+  }
+}
+
 function applyFilters() {
   const query = dom.search.value.trim().toLowerCase();
   const promoOnly = dom.promo.checked;
@@ -128,7 +174,7 @@ function renderRows(rows) {
         <article class="v3-card">
           <div class="v3-card-top ${hasCode ? "code" : ""}"></div>
           <div class="v3-card-head">
-            <img class="v3-logo" src="${escapeHtml(logo)}" alt="${escapeHtml(merchant)}" onerror="this.style.display='none'" />
+            <img class="v3-logo ${logo ? "" : "is-fallback"}" src="${escapeHtml(logo || LOGO_PLACEHOLDER)}" data-logo-src="${escapeHtml(logo)}" data-retry-count="0" alt="${escapeHtml(merchant)}" decoding="async" />
             <div>
               <div class="v3-merchant">${escapeHtml(merchant)}</div>
               <div class="v3-category">${escapeHtml(category)}</div>
@@ -147,6 +193,8 @@ function renderRows(rows) {
         </article>`;
     })
     .join("");
+
+  attachLogoRecovery(dom.grid);
 }
 
 function fillFilterOptions() {

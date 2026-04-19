@@ -188,12 +188,19 @@ body {
   flex-direction: column;
 }
 
-.v3p-card img {
+.v3p-card img,
+.v3p-card-image {
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: contain;
   background: #fff;
   border-bottom: 1px solid var(--border);
+  display: block;
+}
+
+.v3p-card-image.is-fallback {
+  object-fit: cover;
+  background: linear-gradient(135deg, #d9eaff, #dff9f5);
 }
 
 .v3p-card-body {
